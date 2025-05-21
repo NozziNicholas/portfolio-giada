@@ -1,0 +1,38 @@
+---
+import { galleryItems } from "../../data/drawing.js";
+import "../../styles/global.css";
+
+export function getStaticPaths() {
+  return galleryItems.map((drawing) => ({
+    params: { slug: drawing.slug },
+    props: { drawing },
+  }));
+}
+
+const { drawing } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{drawing.title}</title>
+  </head>
+  <body class="bg-white text-gray-900">
+    <div class="max-w-3xl mx-auto py-10 px-4">
+      <a href="/" class="text-blue-500 hover:underline text-lg"
+        >← Back to Gallery</a
+      >
+      <h1 class="text-3xl font-bold mt-4">{drawing.title}</h1>
+      {
+        (
+          <img
+            src={drawing.image}
+            alt={drawing.title}
+            class="mt-6 rounded-lg shadow w-full"
+          />
+        )
+      }
+      <p class="mt-4 text-lg text-gray-700">{drawing.description}</p>
+    </div>
+  </body>
+</html>
